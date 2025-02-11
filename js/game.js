@@ -160,6 +160,8 @@ function Level(config,isIntro){
 			ctx.restore();
 		}
 
+		self.drawGuidePath(ctx);
+
 	};
 
 	self.frames = [];
@@ -222,6 +224,41 @@ function Level(config,isIntro){
 		self.clear();
 		self.ctx.drawImage(self.pathCanvas,0,0);
 	}
+
+	self.drawGuidePath = function(ctx) {
+		if(CURRENT_LEVEL !== 1) return;
+		
+		ctx.save();
+		ctx.strokeStyle = "rgba(255,255,255,0.2)";
+		ctx.lineWidth = 8;
+		ctx.lineCap = "round";
+		ctx.lineJoin = "round";
+		
+		// Draw left arrow
+		ctx.beginPath();
+		ctx.moveTo(150, 250);  // Start at bottom
+		ctx.quadraticCurveTo(30, 200, 100, 100);  // Curve up left side
+		
+		// Arrow head for left path
+		ctx.moveTo(85, 115);
+		ctx.lineTo(100, 100);
+		ctx.lineTo(110, 120);
+		
+		ctx.stroke();
+		
+		// Draw right arrow
+		ctx.beginPath();
+		ctx.moveTo(150, 75);   // Start from key
+		ctx.quadraticCurveTo(270, 200, 150, 250); // Curve down right side
+		
+		// Arrow head for right path
+		ctx.moveTo(190, 230);
+		ctx.lineTo(150, 250);
+		ctx.lineTo(170, 220);
+		
+		ctx.stroke();
+		ctx.restore();
+	};
 
 }
 
@@ -741,7 +778,7 @@ function iHeartYou(){
 	if(window.location.hash){
 		vtext.textContent = encryptString(decodeURIComponent(window.location.hash).substring(1));
 	}else{
-		vtext.textContent = "a lovely message from me to you <3";
+		vtext.textContent = "AMI na ILU";
 	}
 
 	setTimeout(function(){
